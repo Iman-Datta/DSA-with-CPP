@@ -1,4 +1,4 @@
-// Question :- Product of all numbers in array
+// Question: Product of all numbers in array
 
 # include <iostream>
 using namespace std;
