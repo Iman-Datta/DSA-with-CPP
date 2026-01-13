@@ -1,6 +1,7 @@
 #include <iostream>
 #include <utility>
 #include<vector>
+#include <list>
 using namespace std;
 
 void explainPair(){
@@ -28,128 +29,173 @@ void explainPair(){
 
 void explainVector()
 {
-    cout << "===== BASIC VECTOR OPERATIONS =====" << endl;
+    cout << "===== BASIC VECTOR OPERATIONS =====\n";
 
-    // 1️⃣ Creating an empty vector
     vector<int> v;
 
-    // Adding elements
-    v.push_back(10);      // inserts 10
-    v.emplace_back(20);   // inserts 20 (constructed in-place)
-    v.push_back(30);      // inserts 30
+    // Insertion
+    v.push_back(10);
+    v.emplace_back(20);
+    v.push_back(30);
 
-    // Size, front, back
-    cout << "Size of v: " << v.size() << endl;
-    cout << "Front element: " << v.front() << endl;
-    cout << "Back element : " << v.back() << endl;
+    cout << "Size  : " << v.size() << endl;
+    cout << "Front : " << v.front() << endl;
+    cout << "Back  : " << v.back() << endl;
 
-    // Traversing vector
-    cout << "Elements in v: ";
-    for (int x : v)
-        cout << x << " ";
+    cout << "Elements: ";
+    for (int x : v) cout << x << " ";
     cout << endl;
 
 
-    cout << "\n===== VECTOR OF PAIRS =====" << endl;
+    cout << "\n===== VECTOR OF PAIRS =====\n";
 
-    // 2️⃣ Vector of pairs
     vector<pair<int, int>> vp;
-
-    vp.push_back({1, 2});      // pair created first, then added
-    vp.emplace_back(3, 4);     // pair constructed directly
+    vp.push_back({1, 2});
+    vp.emplace_back(3, 4);
     vp.push_back({5, 6});
     vp.emplace_back(7, 8);
 
-    cout << "Vector of pairs (vp):" << endl;
-    for (int i = 0; i < vp.size(); i++)
-    {
-        cout << vp[i].first << " " << vp[i].second << endl;
-    }
+    for (auto p : vp)
+        cout << p.first << " " << p.second << endl;
 
 
-    cout << "\n===== MODIFICATION FUNCTIONS =====" << endl;
+    cout << "\n===== INSERT & ERASE =====\n";
 
-    // Removing last element
-    v.pop_back();   // removes 30
+    v.pop_back();                 // removes 30
+    v.insert(v.begin() + 1, 99);  // single element
+    v.insert(v.begin() + 2, 2, 5);// insert 2 copies of 5
 
-    // Insert element at index 1
-    v.insert(v.begin() + 1, 99);
+    v.erase(v.begin());                    // erase first
+    v.erase(v.begin() + 1, v.begin() + 3); // erase range
 
-    // Erase first element
-    v.erase(v.begin());
-
-    cout << "v after pop, insert, erase: ";
-    for (int x : v)
-        cout << x << " ";
-    cout << endl;
-
-    // Empty check
-    cout << (v.empty() ? "Vector is empty" : "Vector is not empty") << endl;
-
-
-    cout << "\n===== VECTOR CONSTRUCTORS =====" << endl;
-
-    // 3️⃣ Different ways to initialize vector
-    vector<int> vA(5, 100);   // 5 elements, all 100
-    vector<int> vB(5);        // 5 elements, all 0
-    vector<int> vC(vB);       // copy of vB
-
-    cout << "vA: ";
-    for (int x : vA) cout << x << " ";
-    cout << endl;
-
-    cout << "vB: ";
-    for (int x : vB) cout << x << " ";
-    cout << endl;
-
-    cout << "vC: ";
-    for (int x : vC) cout << x << " ";
+    cout << "After modifications: ";
+    for (int x : v) cout << x << " ";
     cout << endl;
 
 
-    cout << "\n===== ITERATORS =====" << endl;
+    cout << "\n===== VECTOR CONSTRUCTORS =====\n";
 
-    // 4️⃣ Iterators
-    vector<int>::iterator it;
+    vector<int> vA(5, 100);   // size + value
+    vector<int> vB(5);        // size only (0)
+    vector<int> vC(vB);       // copy constructor
 
-    it = vA.begin();
+    cout << "vA: "; for (int x : vA) cout << x << " "; cout << endl;
+    cout << "vB: "; for (int x : vB) cout << x << " "; cout << endl;
+    cout << "vC: "; for (int x : vC) cout << x << " "; cout << endl;
+
+
+    cout << "\n===== ITERATORS =====\n";
+
+    vector<int>::iterator it = vA.begin();
     cout << "Begin element: " << *it << endl;
 
     it++;
-    cout << "After it++: " << *it << endl;
+    cout << "After it++   : " << *it << endl;
 
-    // Reverse iterator
     vector<int>::reverse_iterator rit = vA.rbegin();
-    cout << "Last element using reverse iterator: " << *rit << endl;
+    cout << "Last element : " << *rit << endl;
 
 
-    cout << "\n===== CLEAR FUNCTION =====" << endl;
+    cout << "\n===== TRAVERSAL STYLES =====\n";
 
-    // Clearing vector
+    cout << "Iterator loop: ";
+    for (vector<int>::iterator it = vA.begin(); it != vA.end(); it++)
+        cout << *it << " ";
+    cout << endl;
+
+    cout << "Auto iterator: ";
+    for (auto it = vA.begin(); it != vA.end(); it++)
+        cout << *it << " ";
+    cout << endl;
+
+    cout << "Range-based  : ";
+    for (auto x : vA)
+        cout << x << " ";
+    cout << endl;
+
+
+    cout << "\n===== CLEAR & EMPTY =====\n";
+
     v.clear();
     cout << "Size after clear: " << v.size() << endl;
 
-    cout << v.back() << endl;
+    if (v.empty())
+        cout << "Vector is empty (safe state)\n";
+}
 
-    for (vector<int>::iterator it = vA.begin(); it != vA.end(); it++)
-    {
-        cout << *it << " ";
-    }
-   
-    for (auto it = vA.begin(); it != vA.end(); it++)
-    {
-        cout << *it << " ";
-    }
-    
-    for (auto x : vA)
-    {
+void explainList()
+{
+    cout << "===== STL LIST =====\n";
+
+    list<int> l;
+
+    // Insertion at back
+    l.push_back(10);
+    l.emplace_back(20);
+
+    // Insertion at front
+    l.push_front(5);
+    l.emplace_front(1);
+
+    cout << "Elements in list: ";
+    for (int x : l)
         cout << x << " ";
-    }
+    cout << endl;
+
+    // Front & back access
+    cout << "Front element: " << l.front() << endl;
+    cout << "Back element : " << l.back() << endl;
+
+    // Removing elements
+    l.pop_front();
+    l.pop_back();
+
+    cout << "After pop_front & pop_back: ";
+    for (int x : l)
+        cout << x << " ";
+    cout << endl;
+
+    // Size
+    cout << "Size of list: " << l.size() << endl;
+}
+
+void explainPQ(){
     
 }
 
 int main()
 {
-    explainPair();
+    int choice;
+
+    do
+    {
+        cout << "\n===== STL MENU =====\n";
+        cout << "1. Explain Pair\n";
+        cout << "2. Explain Vector\n";
+        cout << "3. Explain List\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            explainPair();
+            break;
+
+        case 2:
+            explainVector();
+            break;
+
+        case 0:
+            cout << "Exiting program...\n";
+            break;
+
+        default:
+            cout << "Invalid choice! Try again.\n";
+        }
+
+    } while (choice != 0);
+
     return 0;
 }
