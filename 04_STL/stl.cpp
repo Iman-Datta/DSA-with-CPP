@@ -2,6 +2,13 @@
 #include <utility>
 #include<vector>
 #include <list>
+#include <deque> // Double Ended Queue
+#include <stack>
+#include <queue>
+#include <set>
+#include <map>
+
+
 using namespace std;
 
 void explainPair(){
@@ -159,9 +166,194 @@ void explainList()
     cout << "Size of list: " << l.size() << endl;
 }
 
-void explainPQ(){
-    
+void explainDeque()
+{
+    cout << "===== STL DEQUE =====\n";
+
+    deque<int> dq;
+
+    // Insertion at back
+    dq.push_back(10);
+    dq.emplace_back(20);
+
+    // Insertion at front
+    dq.push_front(5);
+    dq.emplace_front(1);
+
+    cout << "Elements in deque: ";
+    for (int x : dq)
+        cout << x << " ";
+    cout << endl;
+
+    // Front & back access
+    cout << "Front element: " << dq.front() << endl;
+    cout << "Back element : " << dq.back() << endl;
+
+    // Removal
+    dq.pop_front();
+    dq.pop_back();
+
+    cout << "After pop_front & pop_back: ";
+    for (int x : dq)
+        cout << x << " ";
+    cout << endl;
+
+    // Size
+    cout << "Size of deque: " << dq.size() << endl;
 }
+
+void explainStack()
+{
+    cout << "===== STL STACK =====\n";
+
+    stack<int> st;
+
+    // Push elements
+    st.push(10);
+    st.push(20);
+    st.push(30);
+
+    cout << "Top element: " << st.top() << endl;
+
+    // Pop element
+    st.pop();
+
+    cout << "Top after pop: " << st.top() << endl;
+
+    // Size
+    cout << "Size of stack: " << st.size() << endl;
+
+    // Empty check
+    if (st.empty())
+        cout << "Stack is empty\n";
+    else
+        cout << "Stack is not empty\n";
+}
+
+void explainQueue()
+{
+    cout << "===== STL QUEUE =====\n";
+
+    queue<int> q;
+
+    // Enqueue (insert at rear)
+    q.push(10);
+    q.push(20);
+    q.push(30);
+
+    cout << "Front element: " << q.front() << endl;
+    cout << "Rear element : " << q.back() << endl;
+
+    // Dequeue (remove from front)
+    q.pop();
+
+    cout << "Front after pop: " << q.front() << endl;
+
+    // Size
+    cout << "Size of queue: " << q.size() << endl;
+
+    // Empty check
+    if (q.empty())
+        cout << "Queue is empty\n";
+    else
+        cout << "Queue is not empty\n";
+}
+
+void explainSet()
+{
+    cout << "===== STL SET =====\n";
+
+    set<int> s;
+
+    // Insertion
+    s.insert(30); // auto-sorted
+    s.insert(10);
+    s.insert(20);
+    s.insert(20);   // duplicate (ignored)
+
+    cout << "Elements in set: ";
+    for (int x : s)
+        cout << x << " ";
+    cout << endl;
+
+    // Size
+    cout << "Size of set: " << s.size() << endl;
+
+    // Search
+    if (s.find(20) != s.end())
+        cout << "20 is present in set\n";
+    else
+        cout << "20 is not present in set\n";
+
+    // Count (0 or 1 in set)
+    cout << "Count of 20: " << s.count(20) << endl;
+
+    // Erase
+    s.erase(10);
+
+    cout << "After erasing 10: ";
+    for (int x : s)
+        cout << x << " ";
+    cout << endl;
+
+    // Empty check
+    if (s.empty())
+        cout << "Set is empty\n";
+    else
+        cout << "Set is not empty\n";
+}
+
+void explainMap()
+{
+    cout << "===== STL MAP =====\n";
+
+    map<int,int> m; // key : value (unique keys, sorted)
+
+    // Complex key example
+    map<pair<int,int>, double> m2;
+
+    // Insertion
+    m[1] = 2;
+    m.emplace(3, 1);
+    m.insert({2, 4});
+
+    cout << "Map elements:\n";
+    for (auto it : m)
+        cout << it.first << " " << it.second << endl;
+
+    // Access
+    cout << "Value at key 1: " << m[1] << endl;
+
+    // ⚠ creates new key which value is 0
+    cout << "Value at key 5 (creates entry): " << m[5] << endl;
+
+    cout << "Size of map: " << m.size() << endl;
+
+    // Find (SAFE)
+    auto it = m.find(3);
+    if (it != m.end())
+        cout << "Key 3 value: " << it->second << endl;
+    else
+        cout << "Key 3 not found\n";
+
+    // Find missing key (SAFE)
+    it = m.find(6);
+    if (it != m.end())
+        cout << "Key 6 value: " << it->second << endl;
+    else
+        cout << "Key 6 not found\n";
+
+    // Count
+    cout << "Count of key 3: " << m.count(3) << endl;
+
+    // Erase
+    m.erase(1);
+
+    cout << "After erasing key 1:\n";
+    for (auto p : m)
+        cout << p.first << " -> " << p.second << endl;
+}
+
 
 int main()
 {
@@ -173,6 +365,11 @@ int main()
         cout << "1. Explain Pair\n";
         cout << "2. Explain Vector\n";
         cout << "3. Explain List\n";
+        cout << "4. Explain Deque\n";
+        cout << "5. Explain Stack\n";
+        cout << "6. Explain Queue\n";
+        cout << "7. Explain Set\n";
+        cout << "8. Explain Map\n";
         cout << "0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -185,6 +382,26 @@ int main()
 
         case 2:
             explainVector();
+            break;
+        
+        case 3:
+            explainList();
+            break;
+
+        case 4:
+            explainDeque();
+            break;
+
+        case 5:
+            explainStack();
+            break;
+
+        case 6:
+            explainQueue();
+            break;
+        
+        case 7:
+            explainSet();
             break;
 
         case 0:
